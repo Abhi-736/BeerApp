@@ -1,25 +1,42 @@
-import logo from './logo.svg';
-import './App.css';
+import React from 'react'
+import Header from "./components/Header"
+import Main from "./components/Main"
+import axios from "axios";
+import Loading from './components/Loading';
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+
+const App = () => {
+
+    const [BeerArray, setBeerArray]= React.useState('')
+    const [search,setSearch] = React.useState('')
+    const [loading, setLoading]= React.useState(true)
+    React.useEffect(() => {
+      const fetch = async () => {
+        try {/* setLoading(true) */
+          const response = await axios.get(`https://api.punkapi.com/v2/beers${search &&`?beer_name=${search}`}`);
+          setBeerArray(response.data);
+          console.log(response.data)
+          setLoading(false)
+        } catch (error) { /* setLoading(true) */
+          console.log(error);
+          setLoading(false)
+        }
+      };
+  
+      fetch();
+    },[search]);
+  
+    
+    const handleSearch=(value)=>{
+
+setSearch(value)
+  
+    }
+  return (<>{loading?<Loading/>:
+    <div><Header handleSearch={handleSearch}/>
+    <Main BeerArray={BeerArray}/></div>}
+    </>
+  )
 }
 
-export default App;
+export default App
