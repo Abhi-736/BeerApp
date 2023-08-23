@@ -34,7 +34,7 @@ setSearch(value)
     }
   return (<>{loading?<Loading/>:
     <div><Header handleSearch={handleSearch}/>
-    <Main BeerArray={BeerArray}/></div>}
+    <Main BeerArray={BeerArray} /></div>}
     </>
   )
 }

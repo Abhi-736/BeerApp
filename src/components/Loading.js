@@ -2,7 +2,9 @@ import React from 'react'
 
 const Loading = () => {
   return (
-    <div>Loading</div>
+    <div class="spinner-border" role="status">
+  <span class="visually-hidden">Loading...</span>
+</div>
   )
 }
 
